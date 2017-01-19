@@ -1,10 +1,9 @@
-# Tietokantasovelluksen esittelysivu
-
+# Golfappi
 Yleisiä linkkejä:
 
-* [Linkki sovellukseeni](https://www.cs.helsinki.fi)
-* [Linkki dokumentaatiooni](https://www.github.com)
+tulossa;
+* [Linkki sovellukseeni](https://users.cs.helsinki.fi/surakkaj/index.html)
+* [Linkki dokumentaatiooni](https://www.github.com/surakkaj/doc/dokumentaatio.pdf)
 
 ## Työn aihe
-
-Laita tähän aihekuvaus tai [linkki valmiiseen aiheeseen](http://advancedkittenry.github.io/suunnittelu_ja_tyoymparisto/aiheet/Pokemon-kanta.html) 
+Sovellus yrittää esitellä pelattavia ratoja, ja pitää kirjaa rekistöreityneiden käyttäjien suorituspisteistä. Myös ehkä saattaa jotain ratakohtaista materiaalia olla
