@@ -2,7 +2,7 @@
 Yleisiä linkkejä:
 
 tulossa;
-* [Linkki sovellukseeni](https://surakkaj.cs.helsinki.fi/tsoha/index.php)
+* [Linkki sovellukseeni](https://surakkaj.cs.helsinki.fi/tsoha/)
 * [Linkki dokumentaatiooni](https://www.github.com/surakkaj/Tsoha-Bootstrap/blob/master/doc/dokumentaatio.pdf)
 
 ## Työn aihe
