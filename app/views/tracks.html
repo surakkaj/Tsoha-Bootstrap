@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- add if statement -->
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>City</th>
+            <th>Length</th>
+            <th>Par</th>
+            <!-- add if statement -->
+            <th>personal best</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <!-- List of holes -->
+        <tr>
+            <td><a href="{{base_path}}/track">Autodromo</td>
+            <td>Crowland</td>
+            <td>100m</td>
+            <td>23</td>
+            <th>25</th>        
+        </tr>
+
+    </tbody>
+</table>
+{% endblock %}
