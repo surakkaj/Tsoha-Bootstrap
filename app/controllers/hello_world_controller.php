@@ -13,7 +13,7 @@ class HelloWorldController extends BaseController {
     }
 
     public static function testi($id) {
-  
+
         echo 'Hello World!';
         echo 2 + 2;
         echo $id;
@@ -23,13 +23,19 @@ class HelloWorldController extends BaseController {
 
         View::make('moro.html');
     }
-        public static function track() {
+
+    public static function track() {
 
         View::make('track.html');
     }
-            public static function tracks() {
+
+    public static function tracks() {
 
         View::make('tracks.html');
+    }
+    public static function login() {
+
+        View::make('login.html');
     }
 
 }
