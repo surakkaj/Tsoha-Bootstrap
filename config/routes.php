@@ -19,6 +19,9 @@
     $routes->get('/track/A', function() {
     HelloWorldController::track();
   });
+    $routes->get('/track/A/add', function() {
+    HelloWorldController::trackadd();
+  });
       $routes->get('/login', function() {
     HelloWorldController::login();
   });

@@ -28,6 +28,10 @@ class HelloWorldController extends BaseController {
 
         View::make('track.html');
     }
+    public static function trackadd() {
+
+        View::make('run.html');
+    }
 
     public static function tracks() {
 
