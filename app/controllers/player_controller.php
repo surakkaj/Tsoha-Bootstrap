@@ -6,9 +6,9 @@
  * and open the template in the editor.
  */
 
-class TrackController extends BaseController{
+class PlayerController extends BaseController{
     public static function index(){
-        $tracks = Track::all();
-        View::make('track/index.html', array('games => $games'));
+        $player = Player::all();
+        View::make('track/index.html', array('player => $player'));
     }
 }

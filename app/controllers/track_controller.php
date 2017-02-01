@@ -9,6 +9,6 @@
 class TrackController extends BaseController{
     public static function index(){
         $tracks = Track::all();
-        View::make('track/index.html', array('games => $games'));
+        View::make('track/index.html', array('track => $tracks'));
     }
 }
