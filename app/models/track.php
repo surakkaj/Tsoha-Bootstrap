@@ -15,4 +15,40 @@ class Track extends BaseModel {
     public function __construct($attributes) {
         parent::__construct($attributes);
     }
+    
+      public static function all(){
+        $query = DB::connection()->prepare('SELECT * FROM Track');
+        $query->execute();
+        $rows = $query->fetchAll();
+        $tracks = array();
+        foreach ($rows as $row){
+            $tracks[] = new Game(array(
+                'id' => $row['id'],
+                'location' => $row['location'],
+                'length' => $row['length'],
+                'track' => $row['track'],
+                
+            ));
+            
+        }
+        return $tracks;
+    }
+      public static function find($id){
+        $query = DB::connection()->prepare('SELECT * FROM Track WHERE id = :id');
+        $query->execute(array('id' => $id));
+        $rows = $query->fetch();
+        $tracks = array();
+        if ($row){
+            $tracks[] = new Game(array(
+                'id' => $row['id'],
+                'location' => $row['location'],
+                'length' => $row['length'],
+                'track' => $row['track'],
+                
+            ));
+            
+        }
+        return $tracks;
+    }
+    
 }
