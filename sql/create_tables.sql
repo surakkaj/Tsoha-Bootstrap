@@ -8,7 +8,13 @@ CREATE TABLE Track(
     id SERIAL PRIMARY KEY,
     trackname varchar(50) NOT NULL,
     location  varchar(128) NOT NULL,
-    lenght INTEGER
+    length INTEGER
+);
+CREATE TABLE Hole(
+    id SERIAL PRIMARY KEY,
+    track INTEGER REFERENCES track(id),
+    par INTEGER,
+    length INTEGER
 );
 CREATE TABLE Run(
     id SERIAL PRIMARY KEY,
@@ -19,16 +25,11 @@ CREATE TABLE Run(
 );
 CREATE TABLE Score(
     id SERIAL PRIMARY KEY,
-    run INTEGER REFERENCES run(id),
+    run INTEGER REFERENCES Run(id),
     playerid INTEGER REFERENCES Player(id),
-    throws INTEGER
+    throws INTEGER,
 	holeid INTEGER REFERENCES Hole(id)
 );
-CREATE TABLE Hole(
-    id SERIAL PRIMARY KEY,
-    track INTEGER REFERENCES track(id),
-    par INTEGER,
-    lenght INTEGER
-);
+
 
 

@@ -14,7 +14,7 @@
     HelloWorldController::moro();
   });
     $routes->get('/track', function() {
-    HelloWorldController::tracks();
+        TrackController::index();
   });
     $routes->get('/track/A', function() {
     HelloWorldController::track();
