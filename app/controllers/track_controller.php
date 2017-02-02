@@ -13,9 +13,23 @@ class TrackController extends BaseController {
         View::make('track/index.html', array('tracks' => $tracks));
     }
 
-    public static function show($id) {
+    public static function view($id) {
         $track = Track::find($id);
-        View::make('track/index.html', array('track' => $track));
+        $hole = Hole::findByTrackId($id);
+        if (empty($hole)) {
+            Redirect::to('track' .$id . '/add');
+        }
+        View::make('track/view.html', array('track' => $track, 'holes' => $hole));
+    }
+    public static function store(){
+        $posti = $_POST;
+        $track = new Track(array(
+            'trackname' => $posti['trackname'],
+            'location' => $posti['location'],
+            'length' => $posti['length']
+        ));
+        $track->save();
+        Redirect::to('/track/' . $track->id);
     }
 
 }

@@ -16,22 +16,22 @@ class Hole extends BaseModel {
         parent::__construct($attributes);
     }
     
-        public static function find($id){
-        $query = DB::connection()->prepare('SELECT * FROM Track WHERE id = :id');
+        public static function findByTrackId($id){
+        $query = DB::connection()->prepare('SELECT * FROM Hole WHERE track = :id');
         $query->execute(array('id' => $id));
-        $rows = $query->fetch();
-        $hole = array();
-        if ($row){
-            $hole[] = new Hole(array(
+        $rows = $query->fetchAll();
+        $holes = array();
+        foreach ($rows as $row){
+            $holes[] = new Hole(array(
                 'id' => $row['id'],
-                'location' => $row['location'],
+                'par' => $row['par'],
                 'length' => $row['length'],
-                'track' => $row['track'],
+                'track' => $row['track']
                 
             ));
             
         }
-        return $hole;
+        return $holes;
     }
     
 }
