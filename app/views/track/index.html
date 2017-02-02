@@ -16,14 +16,15 @@
 
     <tbody>
         {% for track in tracks %}
+
         <tr>    
-            <td><a href="{{base_path}}/track/A">Autodromo</td>
-            <td>{track.track}</td>
-            <td>{track.length}</td>
+            <td><a href="{{base_path}}/track/{{track.id}}">{{track.track}}</td>
+            <td>{{track.track}}</td>
+            <td>{{track.length}}</td>
             <td>placehold</td>
             <th>placehold</th>        
         </tr>
-        {% endfor %}
+                {% endfor %}
     </tbody>
 </table>
 <a href="#" class="btn btn-success">Add track</a>

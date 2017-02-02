@@ -22,7 +22,7 @@ class Hole extends BaseModel {
         $rows = $query->fetch();
         $hole = array();
         if ($row){
-            $hole[] = new Game(array(
+            $hole[] = new Hole(array(
                 'id' => $row['id'],
                 'location' => $row['location'],
                 'length' => $row['length'],

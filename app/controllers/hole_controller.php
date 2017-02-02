@@ -7,8 +7,5 @@
  */
 
 class HoleController extends BaseController{
-    public static function index(){
-        $tracks = Hole::all();
-        View::make('track/index.html', array('holes => $holes'));
-    }
+
 }

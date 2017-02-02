@@ -47,8 +47,9 @@ class Track extends BaseModel {
                 
             ));
             
-        }
         return $tracks;
+        }
+        return null;
     }
     
 }

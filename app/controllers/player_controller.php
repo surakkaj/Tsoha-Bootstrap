@@ -8,7 +8,9 @@
 
 class PlayerController extends BaseController{
     public static function index(){
-        $player = Player::all();
-        View::make('track/index.html', array('player => $player'));
+        View::make('player/index.html');
+    }
+    public static function view(){
+        View::make('player/view.html');
     }
 }
