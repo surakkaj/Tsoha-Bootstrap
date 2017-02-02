@@ -22,7 +22,7 @@ class Track extends BaseModel {
         $rows = $query->fetchAll();
         $tracks = array();
         foreach ($rows as $row){
-            $tracks[] = new Game(array(
+            $tracks[] = new Track(array(
                 'id' => $row['id'],
                 'location' => $row['location'],
                 'length' => $row['length'],
@@ -39,7 +39,7 @@ class Track extends BaseModel {
         $rows = $query->fetch();
         $tracks = array();
         if ($row){
-            $tracks[] = new Game(array(
+            $tracks[] = new Track(array(
                 'id' => $row['id'],
                 'location' => $row['location'],
                 'length' => $row['length'],
