@@ -47,10 +47,10 @@ class Track extends BaseModel {
         }
         return null;
     }
-    public function save(){
-        $statem = 'INSERT INTO Track (trackname, location, length) VALUES (:trackname, :location, :length) RETURNING id';
-        $row = DB::connection()->prepare($statem)->execute(array('trackname' => $this->track, 'location' => $this->location, 'length' => $this->length))->fetch();
-      $this->id = $row['id'];
+
+    public function save() {
+        $row = DB::connection()->prepare('INSERT INTO Track (trackname, location, length) VALUES (:trackname, :location, :length) RETURNING id')->execute(array('trackname' => $this->track, 'location' => $this->location, 'length' => $this->length))->fetch();
+        $this->id = $row['id'];
     }
 
 }
