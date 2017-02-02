@@ -26,7 +26,7 @@ class Track extends BaseModel {
                 'id' => $row['id'],
                 'location' => $row['location'],
                 'length' => $row['length'],
-                'track' => $row['track'],
+                'track' => $row['trackname']
                 
             ));
             
@@ -36,14 +36,14 @@ class Track extends BaseModel {
       public static function find($id){
         $query = DB::connection()->prepare('SELECT * FROM Track WHERE id = :id');
         $query->execute(array('id' => $id));
-        $rows = $query->fetch();
+        $row = $query->fetch();
         $tracks = array();
         if ($row){
             $tracks[] = new Track(array(
                 'id' => $row['id'],
                 'location' => $row['location'],
                 'length' => $row['length'],
-                'track' => $row['track'],
+                'track' => $row['trackname'],
                 
             ));
             
