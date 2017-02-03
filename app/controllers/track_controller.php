@@ -28,10 +28,9 @@ class TrackController extends BaseController {
             'location' => $posti['location'],
             'length' => $posti['length']
         ));
-                Kint::dump($posti);
         $track->save();
 
-       // Redirect::to('/track/' . $track->id);
+       Redirect::to('/track/' . $track->id);
     }
     public static function add(){
         View::make('track/add.html');

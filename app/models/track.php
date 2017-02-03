@@ -49,8 +49,7 @@ class Track extends BaseModel {
     }
 
     public function save() {
-        $row = DB::connection()->prepare('INSERT INTO Track (trackname, location, length) VALUES (:trackname, :location, :length) RETURNING id')->execute(array('trackname' => $this->track, 'location' => $this->location, 'length' => $this->length))->fetch();
-        $this->id = $row['id'];
+            $this->id  = DB::connection()->prepare('INSERT INTO Track (trackname, location, length) VALUES (:trackname, :location, :length) RETURNING id')->execute(array('trackname' => $this->track, 'location' => $this->location, 'length' => $this->length))->fetch()['id'];
     }
 
 }
