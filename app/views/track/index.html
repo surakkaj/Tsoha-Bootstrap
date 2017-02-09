@@ -9,7 +9,9 @@
             <th>City</th>
             <th>Length</th>
             <th>Par</th>
-            <!-- add if statement -->
+            {% if user_logged_in %}
+            <th> {{user_logged_in.name}} personal best</th>
+            {% endif %}
             <th>personal best</th>
         </tr>
     </thead>
@@ -24,7 +26,7 @@
             <td>placehold</td>
             <th>placehold</th>        
         </tr>
-                {% endfor %}
+        {% endfor %}
     </tbody>
 </table>
 <a href="{{base_path}}/track/add" class="btn btn-success">Add track</a>

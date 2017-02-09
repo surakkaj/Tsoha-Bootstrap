@@ -1,11 +1,5 @@
 <?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 class PlayerController extends BaseController{
     public static function index(){
         View::make('player/index.html');
@@ -21,8 +15,9 @@ class PlayerController extends BaseController{
           $posti = $_POST;
           $player = Player::auth($posti['handle'], $posti['pass']);
           if (!$player) {
-              View::make('user/login.html', array('error' => 'With the wrong credentials!?', 'handle' => $posti['handle']));
+              View::make('player/login.html', array('errors' => 'With the wrong credentials!?', 'handle' => $posti['handle']));
           } else {
+              $_SESSION['player'] = $player->id;
               Redirect::to('/'); 
           }
   }
