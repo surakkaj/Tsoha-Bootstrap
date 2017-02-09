@@ -55,4 +55,7 @@
 </table>
 <!-- if -->
 <a href="{{base_path}}/track/A/add" class="btn btn-success">Add run</a>
+<form method="post" action="{{base_path}}/track/{{track.id}}/destroy" style="display: inline-block;">
+  <button type="submit" class="btn btn-danger">Delete track</button>
+</form>
 {% endblock %}

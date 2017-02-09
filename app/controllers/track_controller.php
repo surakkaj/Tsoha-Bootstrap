@@ -12,10 +12,39 @@ class TrackController extends BaseController {
         $tracks = Track::all();
         View::make('track/index.html', array('tracks' => $tracks));
     }
+    public static function edit(){
+        $track = Track::find($id);
+        View::make('track/edit.html', array('attr' => $game));
+    }
+    public static function update(){
+        $posti = $_POST;
+        $track = new Track(array(
+            'track' => $posti['track'],
+            'location' => $posti['location'],
+            'length' => $posti['length']
+        ));
+
+        $err = $track->errors();
+        if (count($err)  > 0) {
+            View::make('track/edit.html', array('errors' => $err,'track' => $track));
+            
+        } else {
+             $track->update();
+
+            Redirect::to('/track/' . $track->id . '');
+
+        }
+    }
+    public static function destroy($id){
+        $track = new Track(array('id' => $id));
+        $track->delete();
+        Redirect::to('/track');
+    }
+    
 
     public static function view($id) {
         $track = Track::find($id);
-        $hole = Hole::findByTrackId($id);
+        $hole = Hole::find_by_trackId($id);
         if (empty($hole)) {
             Redirect::to('/track/' . $id . '/add');
         }
@@ -37,7 +66,7 @@ class TrackController extends BaseController {
         } else {
              $track->save();
 
-            Redirect::to("//track//" . $track->id . '');
+            Redirect::to('/track/' . $track->id . '');
 
         }
     }

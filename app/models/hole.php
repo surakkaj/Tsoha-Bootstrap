@@ -16,7 +16,7 @@ class Hole extends BaseModel {
         parent::__construct($attributes);
     }
     
-        public static function findByTrackId($id){
+        public static function find_by_trackId($id){
         $query = DB::connection()->prepare('SELECT * FROM Hole WHERE track = :id');
         $query->execute(array('id' => $id));
         $rows = $query->fetchAll();
