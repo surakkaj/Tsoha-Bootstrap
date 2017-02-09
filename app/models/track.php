@@ -12,6 +12,7 @@ class Track extends BaseModel {
 
     public function __construct($attributes) {
         parent::__construct($attributes);
+        $this->validators = array('validate_trackname', 'validate_location','validate_length');
     }
 
     public static function all() {
@@ -44,12 +45,28 @@ class Track extends BaseModel {
             ));
 
             return $track;
-        }
+        }  
         return null;
     }
 
     public function save() {
-            $this->id  = DB::connection()->prepare('INSERT INTO Track (trackname, location, length) VALUES (:trackname, :location, :length) RETURNING id')->execute(array('trackname' => $this->track, 'location' => $this->location, 'length' => $this->length))->fetch()['id'];
+        $query = DB::connection()->prepare('INSERT INTO Track (trackname, location, length) VALUES (:track, :location, :length) RETURNING id');
+        $query->execute(array('track' => $this->track, 'location' => $this->location, 'length' => $this->length));
+        $row = $query->fetch();
+
+        $this->id = $row['id'];
     }
 
+    public function validate_trackname() {
+        return $this->validate_min_length($this->track, 3);
+    }
+       public function validate_location() {
+        return $this->validate_min_length($this->location, 3);
+    }
+    public function validate_length() {
+        return $this->validate_integer($this->length);
+    }
+    
+
 }
+

@@ -17,22 +17,32 @@ class TrackController extends BaseController {
         $track = Track::find($id);
         $hole = Hole::findByTrackId($id);
         if (empty($hole)) {
-            Redirect::to('track' .$id . '/add');
+            Redirect::to('/track/' . $id . '/add');
         }
         View::make('track/view.html', array('track' => $track, 'holes' => $hole));
     }
-    public static function store(){
+
+    public static function store() {
         $posti = $_POST;
         $track = new Track(array(
-            'trackname' => $posti['trackname'],
+            'track' => $posti['track'],
             'location' => $posti['location'],
             'length' => $posti['length']
         ));
-        $track->save();
 
-       Redirect::to('/track/' . $track->id);
+        $err = $track->errors();
+        if (count($err)  > 0) {
+            View::make('track/add.html', array('errors' => $err));
+            
+        } else {
+             $track->save();
+
+            Redirect::to("//track//" . $track->id . '');
+
+        }
     }
-    public static function add(){
+
+    public static function add() {
         View::make('track/add.html');
     }
 
