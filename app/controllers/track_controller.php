@@ -12,15 +12,16 @@ class TrackController extends BaseController {
         $tracks = Track::all();
         View::make('track/index.html', array('tracks' => $tracks));
     }
-    public static function edit(){
+    public static function edit($id){
         self::check_logged_in();
         $track = Track::find($id);
-        View::make('track/edit.html', array('attr' => $game));
+        View::make('track/edit.html', array('track' => $track));
     }
     public static function update(){
         self::check_logged_in();
         $posti = $_POST;
         $track = new Track(array(
+            'id' => $posti['id'],
             'track' => $posti['track'],
             'location' => $posti['location'],
             'length' => $posti['length']
