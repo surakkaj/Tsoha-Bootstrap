@@ -40,7 +40,14 @@
                         <!-- Navigaation linkit -->
                         <li><a href="{{base_path}}">Etusivu</a></li>
                         <li><a href="{{base_path}}/track">Radat</a></li>
+                        {% if user_logged_in %}
+                        <form class="navbar-form navbar-right" method="post" action="{{base_path}}/logout">
+                            <button type="submit" class="btn btn-danger">logout </button>
+                        </form>
+                        {% else %}
                         <li><a href="{{base_path}}/login">login</a></li>
+                        {% endif %}
+
                     </ul>
                 </div>
             </div>

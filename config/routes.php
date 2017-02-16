@@ -23,7 +23,10 @@
         TrackController::view($id);
   });
     $routes->get('/track/:id/add', function($id) {
-        TrackController::view($id);
+        HoleController::add($id);
+  });
+    $routes->post('/track/:id/add', function($id) {
+        TrackController::holes($id);
   });
     $routes->get('/track/:id/edit', function($id) {
         TrackController::edit($id);
@@ -45,6 +48,15 @@
   });
       $routes->post('/login', function() {
           PlayerController::logger();
+  });
+      $routes->post('/logout', function() {
+          PlayerController::logout();
+  });
+      $routes->get('/login/new', function() {
+          PlayerController::add();
+  });
+      $routes->post('/login/new', function() {
+          PlayerController::store();
   });
 
   

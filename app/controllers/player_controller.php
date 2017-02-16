@@ -1,24 +1,56 @@
 <?php
 
-class PlayerController extends BaseController{
-    public static function index(){
+class PlayerController extends BaseController {
+
+    public static function index() {
         View::make('player/index.html');
     }
-    public static function view($id){
-        
+
+    public static function view($id) {
+
         View::make('player/view.html', array());
     }
-      public static function login(){
-      View::make('player/login.html');
-  }
-      public static function logger(){
-          $posti = $_POST;
-          $player = Player::auth($posti['handle'], $posti['pass']);
-          if (!$player) {
-              View::make('player/login.html', array('errors' => 'With the wrong credentials!?', 'handle' => $posti['handle']));
-          } else {
-              $_SESSION['player'] = $player->id;
-              Redirect::to('/'); 
-          }
-  }
+
+    public static function login() {
+        View::make('player/login.html');
+    }
+
+    public static function add() {
+        View::make('player/add.html');
+    }
+
+    public static function logout() {
+        $_SESSION['player'] = null;
+        View::make('player/login.html');
+    }
+
+    public static function logger() {
+        $posti = $_POST;
+        $player = Player::auth($posti['handle'], $posti['pass']);
+        if (!$player) {
+            View::make('player/login.html', array('error' => 'With the wrong credentials!?', 'handle' => $posti['handle']));
+        } else {
+            $_SESSION['player'] = $player->id;
+            Redirect::to('/');
+        }
+    }
+
+    public static function store() {
+        $posti = $_POST;
+        $player = new Player(array(
+            'handle' => $posti['handle'],
+            'pass' => $posti['pass'],
+            'email' => $posti['email']
+        ));
+
+        $err = $player->errors();
+        if (count($err) > 0) {
+            View::make('login/add.html', array('errors' => $err));
+        } else {
+            $player->save();
+
+            Redirect::to('/' . $player->id . '');
+        }
+    }
+
 }

@@ -13,10 +13,12 @@ class TrackController extends BaseController {
         View::make('track/index.html', array('tracks' => $tracks));
     }
     public static function edit(){
+        self::check_logged_in();
         $track = Track::find($id);
         View::make('track/edit.html', array('attr' => $game));
     }
     public static function update(){
+        self::check_logged_in();
         $posti = $_POST;
         $track = new Track(array(
             'track' => $posti['track'],
@@ -36,6 +38,7 @@ class TrackController extends BaseController {
         }
     }
     public static function destroy($id){
+        self::check_logged_in();
         $track = new Track(array('id' => $id));
         $track->delete();
         Redirect::to('/track');
@@ -52,6 +55,7 @@ class TrackController extends BaseController {
     }
 
     public static function store() {
+        self::check_logged_in();
         $posti = $_POST;
         $track = new Track(array(
             'track' => $posti['track'],
@@ -73,6 +77,10 @@ class TrackController extends BaseController {
 
     public static function add() {
         View::make('track/add.html');
+    }
+    public static function holes($id){
+        $params = $_POST;
+        kint::dump($params);
     }
 
 }

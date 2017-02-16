@@ -32,6 +32,7 @@ class Track extends BaseModel {
     }
 
     public static function find($id) {
+       
         $query = DB::connection()->prepare('SELECT * FROM Track WHERE id = :id');
         $query->execute(array('id' => $id));
         $row = $query->fetch();

@@ -12,6 +12,7 @@ class Player extends BaseModel {
 
     public function __construct($attributes) {
         parent::__construct($attributes);
+        $this->validators = array('validate_handle', 'validate_pass');
     }
 
     public function auth($handle, $pass) {
@@ -47,6 +48,25 @@ class Player extends BaseModel {
         } else {
             return null;
         }
+    }
+
+    public function save() {
+        /*
+         * pass should be crypted
+         */
+        $query = DB::connection()->prepare('INSERT INTO Player (handle, pass, email) VALUES (:handle, :pass, :email) RETURNING id');
+        $query->execute(array('handle' => $this->handle, 'pass' => $this->pass, 'email' => $this->email));
+        $row = $query->fetch();
+
+        $this->id = $row['id'];
+    }
+
+    public function validate_handle() {
+        return $this->validate_min_length($this->handle, 3);
+    }
+
+    public function validate_pass() {
+        return $this->validate_min_length($this->pass, 7);
     }
 
 }
