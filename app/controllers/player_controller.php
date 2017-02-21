@@ -28,7 +28,9 @@ class PlayerController extends BaseController {
         $posti = $_POST;
         $player = Player::auth($posti['handle'], $posti['pass']);
         if (!$player) {
-            View::make('player/login.html', array('error' => 'With the wrong credentials!?', 'handle' => $posti['handle']));
+            $err = array();
+            $err[] =  $player . ' as a user was not found';
+            View::make('player/login.html', array('errors' => $err, 'handle' => $posti['handle']));
         } else {
             $_SESSION['player'] = $player->id;
             Redirect::to('/');
@@ -45,11 +47,11 @@ class PlayerController extends BaseController {
 
         $err = $player->errors();
         if (count($err) > 0) {
-            View::make('login/add.html', array('errors' => $err));
+            View::make('player/add.html', array('errors' => $err));
         } else {
             $player->save();
 
-            Redirect::to('/' . $player->id . '');
+            Redirect::to('/player/' . $player->id . '');
         }
     }
 

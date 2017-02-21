@@ -18,13 +18,13 @@ class BaseModel {
         $validator_err = array();
 
         foreach ($this->validators as $validator) {
-            
+
             $va = $this->{$validator}();
             if (!empty($va)) {
                 $validator_err[] = $va;
             }
         }
-        
+
         $errors = array_merge($errors, $validator_err);
 
         return $errors;
@@ -37,13 +37,15 @@ class BaseModel {
             return;
         }
     }
+
     public function validate_integer($preint) {
         if (is_numeric($preint)) {
+
             return;
-        } else{
+        } else {
+            Kint::dump($preint);
             return $preint . " is not an integer";
         }
     }
-    
 
 }

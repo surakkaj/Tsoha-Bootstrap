@@ -1,28 +1,57 @@
 {% extends "base.html" %}
 {% block content %}
 Edit Track {{track.name}}
-  {% if errors %}
-    <div class="alert">
-      <ul>
+{% if errors %}
+<div class="alert">
+    <ul>
         {% for error in errors %}
-          <li>{{error}}</li>
+        <li>{{error}}</li>
         {% endfor %}
-      </ul>
-    </div>
-  {% endif %}
+    </ul>
+</div>
+{% endif %}
 
-  <form method="post" action="{{base_path}}/track/{{track.id}}/edit">
+
+
+<form method="post" action="{{base_path}}/track/{{track.id}}/edit">
     <div class="form-group">
-        <input type="text" name="id" value="{{track.id}}" class="form-control" readonly>
-      <label>Trackname</label>
-      <input type="text" name="track" value="{{track.track}}" class="form-control">
-      <label>Location</label>
-      <input type="text" name="location" value="{{track.location}}" class="form-control">
-      <label>Length</label>
-      <input type="text" name="length" value="{{track.length}}" class="form-control">
+        <input type="text" name="trackid" value="{{track.id}}" class="form-control" readonly>
+        <label>Trackname</label>
+        <input type="text" name="track" value="{{track.track}}" class="form-control">
+        <label>Location</label>
+        <input type="text" name="location" value="{{track.location}}" class="form-control">
+        <label>Length</label>
+        <input type="text" name="tlength" value="{{track.length}}" class="form-control">
     </div>
-          <div class="form-group">
-      <button type="submit" class="btn btn-success">Edit</button>
+    <div class="form-group">
+
     </div>
-  </form>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Hole</th>
+                <th>Par</th>
+                <th>Length</th>
+                <!-- add if statement -->
+                <th>Hole ID</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <!-- List of holes -->
+            {% set i = 1 %}
+            {% for hole in holes %}
+            <tr>
+
+
+                <td>{{ i }}{% set i = i+1 %}</td>
+                <td> <input type="number" name="par[]" class="form-control" value="{{ hole.par }}" required></td>
+                <td> <input type="number" name="length[]" class="form-control" value="{{ hole.length }}" required></td>
+                <td> <input type="number" name="id[]" class="form-control" value="{{ hole.id }}" readonly></td>        
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <button type="submit" class="btn btn-success">Edit</button>
+</form>
 {% endblock %}

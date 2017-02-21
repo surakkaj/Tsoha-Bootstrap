@@ -13,4 +13,30 @@ class HoleController extends BaseController {
         View::make('hole/add.html', array('track' => $trackid));
     }
 
+    public static function store_by_object($hole) {
+        self::check_logged_in();
+
+
+        $err = $hole->errors();
+        if (count($err) > 0) {
+            $hole->delete_by_track();
+            View::make('hole/add.html', array('track' => $hole->track), array('errors' => $err));
+        } else {
+            $hole->save();
+        }
+    }
+
+    public static function update_by_object($hole) {
+        self::check_logged_in();
+
+
+        $err = $hole->errors();
+        if (count($err) > 0) {
+            //
+        } else {
+            $hole->update();
+        }
+    }
+
+
 }

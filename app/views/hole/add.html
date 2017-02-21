@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-Add a Track
+Add Holes
 {% if errors %}
 <div class="alert">
     <ul>
@@ -11,20 +11,18 @@ Add a Track
 </div>
 {% endif %}
 <form method="post" action="{{base_path}}/track/{{ track }}/add">
-    <label>Holename</label>
+   
     <label>par</label>
     <label>Length</label>
     <div class="row">
-        <div class="col-md-4">Holename</div>
         <div class="col-md-4">par</div>
         <div class="col-md-4">Length</div>
     </div>
-    {% for i in 0..10 %}
+    {% for i in 0..18 %}
     <div class="form-group">
         <div class="row">
-            <div class="col-md-4">    <input type="text" name="name[]" class="form-control"></div>
-            <div class="col-md-4"> <input type="number" name="par[]" class="form-control"></div>
-            <div class="col-md-4"> <input type="number" name="length[]" class="form-control"></div>
+            <div class="col-md-1"> <input type="number" name="par[]" class="form-control"></div>
+            <div class="col-md-1"> <input type="number" name="length[]" class="form-control"></div>
         </div>
         {% endfor %}
 
