@@ -7,3 +7,5 @@ tulossa;
 
 ## Työn aihe
 Sovellus yrittää esitellä pelattavia ratoja, ja pitää kirjaa rekistöreityneiden käyttäjien suorituspisteistä. Myös ehkä saattaa jotain ratakohtaista materiaalia olla
+
+// Käyttäjätunnuksella Kameli, salasana ponikasi pääsee sisään.
