@@ -23,7 +23,6 @@ class TrackController extends BaseController {
     public static function update() {
         self::check_logged_in();
         $posti = $_POST;
-        Kint::dump($posti);
         $track = new Track(array(
             'id' => (int)$posti['trackid'],
             'track' => $posti['track'],
