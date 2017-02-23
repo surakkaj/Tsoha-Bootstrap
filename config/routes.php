@@ -40,6 +40,12 @@
   $routes->post('/track', function(){
   TrackController::store();
   });
+  $routes->post('/track/:id/run', function($id){
+  TrackController::run($id);
+  });
+  $routes->post('/track/:id/scores', function($id){
+  TrackController::store_run($id);
+  });
   /*
    * Player
    */

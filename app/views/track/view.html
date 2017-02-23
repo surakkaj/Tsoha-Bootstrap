@@ -53,8 +53,12 @@
         {% endfor %}
     </tbody>
 </table>
-<!-- if -->
-<a href="{{base_path}}/track/{{track.id}}/add" class="btn btn-success">Add run</a>
+
+<form method="post" action="{{base_path}}/track/{{track.id}}/run" style="display: inline-block;">
+    <input type="hidden" name="player" value="{{player.id}}">
+    <input type="hidden" name="" value="">
+  <button type="submit" class="btn btn-success">Add run</button>
+</form>
 <form method="post" action="{{base_path}}/track/{{track.id}}/destroy" style="display: inline-block;">
   <button type="submit" class="btn btn-danger">Delete track</button>
 </form>

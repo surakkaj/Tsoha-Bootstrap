@@ -43,7 +43,6 @@ class BaseModel {
 
             return;
         } else {
-            Kint::dump($preint);
             return $preint . " is not an integer";
         }
     }

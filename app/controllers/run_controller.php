@@ -14,7 +14,7 @@ class RunController extends BaseController {
         $run= new Run(array(
             'track' => $posti['track'],
             'player' => $posti['player'],
-            'date' => $posti['date']
+            'date' => time()
         ));
 
         $err = $run->errors();
@@ -24,6 +24,15 @@ class RunController extends BaseController {
             $track->save();
 
             Redirect::to('/track/' . $run->track . '');
+        }
+    }
+    public static function store_by_object($run) {
+        self::check_logged_in();
+        $err = $run->errors();
+        if (count($err) > 0) {
+            View::make('track/' . $run->track .  '/run/add.html', array('errors' => $err));
+        } else {
+            $run->save();
         }
     }
         public static function destroy($id) {

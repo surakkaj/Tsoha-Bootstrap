@@ -20,7 +20,7 @@ class Run extends BaseModel {
     
     public function save() {
         $query = DB::connection()->prepare('INSERT INTO Run (track, playerid, playdate) VALUES (:track, :playerid, :playdate) RETURNING id');
-        $query->execute(array('track' => $this->track, 'playerid' => $this->player, 'length' => $this->date));
+        $query->execute(array('track' => $this->track, 'playerid' => $this->player, 'playdate' => $this->date));
         $row = $query->fetch();
 
         $this->id = $row['id'];

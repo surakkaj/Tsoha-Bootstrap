@@ -24,10 +24,10 @@ class TrackController extends BaseController {
         self::check_logged_in();
         $posti = $_POST;
         $track = new Track(array(
-            'id' => (int)$posti['trackid'],
+            'id' => (int) $posti['trackid'],
             'track' => $posti['track'],
             'location' => $posti['location'],
-            'length' => (int)$posti['tlength']
+            'length' => (int) $posti['tlength']
         ));
 
         $err = $track->errors();
@@ -48,11 +48,10 @@ class TrackController extends BaseController {
                 continue;
             }
             $hole = new Hole(array(
-                 'id' => (int) $posti['id'][$i],
-                'track' => (int)$posti['trackid'],
+                'id' => (int) $posti['id'][$i],
+                'track' => (int) $posti['trackid'],
                 'par' => (int) $posti['par'][$i],
                 'length' => (int) $posti['length'][$i]
-               
             ));
             HoleController::update_by_object($hole);
         }
@@ -68,10 +67,11 @@ class TrackController extends BaseController {
     public static function view($id) {
         $track = Track::find($id);
         $hole = Hole::find_by_trackId($id);
+        $player = self::get_user_logged_in();
         if (empty($hole)) {
             Redirect::to('/track/' . $id . '/add');
         }
-        View::make('track/view.html', array('track' => $track, 'holes' => $hole));
+        View::make('track/view.html', array('track' => $track, 'holes' => $hole, 'player' => $player));
     }
 
     public static function store() {
@@ -114,4 +114,38 @@ class TrackController extends BaseController {
         Redirect::to('/track/' . $id);
     }
 
+    public static function run($id) {
+        self::check_logged_in();
+        $track = Track::find($id);
+        $holes = Hole::find_by_trackId($id);
+        View::make('run/add.html', array('track' => $track, 'holes' => $holes));
+    }
+
+    public static function store_run($id) {
+        self::check_logged_in();
+        $posti = $_POST;
+        $player = self::get_user_logged_in();
+        $track = Track::find($id);
+        $date = date('Y-m-d H:i:s');
+        $run = new Run(array(
+            'track' => $track->id,
+            'player' => $player->id,
+            'date' => $date
+        ));
+        RunController::store_by_object($run);
+        for ($i = 0; $i < sizeof($posti['holeid']); $i++) {
+            if ((empty($posti['holeid']) && empty($posti['throws']))) {
+                continue;
+            }
+            $score = new Score(array(
+                'run' => $run->id,
+                'player' => $player->id,
+                'hole' => (int) $posti['holeid'][$i],
+                'throws' => (int) $posti['throws'][$i]
+            ));
+            ScoreController::store_by_object($score);
+            
+        }
+        Redirect::to('/track/' . $id);
+    }
 }
