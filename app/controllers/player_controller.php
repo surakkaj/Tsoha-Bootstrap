@@ -51,7 +51,7 @@ class PlayerController extends BaseController {
         } else {
             $player->save();
 
-            Redirect::to('/player/' . $player->id . '');
+            Redirect::to('/');
         }
     }
 
