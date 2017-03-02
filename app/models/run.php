@@ -1,23 +1,40 @@
 <?php
 
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 
 class Run extends BaseModel {
-    
-    public  $id, $track, $player, $date;
-    
 
+    public $id, $track, $player, $date;
 
     public function __construct($attributes) {
         parent::__construct($attributes);
-        
+
         $this->validators = array();
     }
-    
+
+    public static function find($id) {
+
+        $query = DB::connection()->prepare('SELECT * FROM Run WHERE id = :id');
+        $query->execute(array('id' => $id));
+        $row = $query->fetch();
+
+        if ($row) {
+            $run = new Run(array(
+                'id' => $row['id'],
+                'track' => $row['track'],
+                'player' => $row['playerid'],
+                'track' => $row['track']
+            ));
+
+            return $run;
+        }
+        return null;
+    }
+
     public function save() {
         $query = DB::connection()->prepare('INSERT INTO Run (track, playerid, playdate) VALUES (:track, :playerid, :playdate) RETURNING id');
         $query->execute(array('track' => $this->track, 'playerid' => $this->player, 'playdate' => $this->date));
@@ -26,12 +43,12 @@ class Run extends BaseModel {
         $this->id = $row['id'];
     }
 
-
-
     public function delete() {
         $query1 = DB::connection()->prepare('DELETE FROM Score WHERE run = :id');
         $query1->execute(array('id' => $this->id));
         $query2 = DB::connection()->prepare('DELETE FROM Run WHERE id = :id');
         $query2->execute(array('id' => $this->id));
     }
+
+
 }

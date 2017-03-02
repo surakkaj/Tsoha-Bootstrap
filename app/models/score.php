@@ -28,4 +28,21 @@ class Score extends BaseModel {
         $query->execute(array('run' => $this->run, 'player' => $this->player, 'throws' => $this->throws, 'hole' => $this->hole));
     }
 
+    public static function find_by_runId($id) {
+        $query = DB::connection()->prepare('SELECT * FROM Score WHERE run = :id');
+        $query->execute(array('id' => $id));
+        $rows = $query->fetchAll();
+        $score = array();
+        foreach ($rows as $row) {
+            $score[] = new Score(array(
+                'id' => $row['id'],
+                'run' => $row['run'],
+                'player' => $row['playerid'],
+                'hole' => $row['holeid'],
+                'throws' => $row['throws']
+            ));
+        }
+        return $score;
+    }
+
 }

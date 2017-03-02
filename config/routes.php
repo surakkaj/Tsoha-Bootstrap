@@ -43,6 +43,9 @@
   $routes->post('/track/:id/run', function($id){
   TrackController::run($id);
   });
+  $routes->get('/track/:id/:run', function($id,$run){
+  TrackController::view_run($id,$run);
+  });
   $routes->post('/track/:id/scores', function($id){
   TrackController::store_run($id);
   });

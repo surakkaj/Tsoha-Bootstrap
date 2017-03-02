@@ -121,6 +121,18 @@ class TrackController extends BaseController {
         View::make('run/add.html', array('track' => $track, 'holes' => $holes));
     }
 
+    public static function view_run($id, $rid) {
+        self::check_logged_in();
+        $track = Track::find($id);
+        $holes = Hole::find_by_trackId($id);
+        
+        $run = Run::find($rid);
+        if (empty($run) || $run->track != $track->id) {
+            self::run($id);
+        }
+        $scores = Score::find_by_runId($run->id);
+        View::make('run/view.html', array('track' => $track, 'holes' => $holes, 'run' => $run, 'scores' => $scores));
+    }
     public static function store_run($id) {
         self::check_logged_in();
         $posti = $_POST;
@@ -144,8 +156,8 @@ class TrackController extends BaseController {
                 'throws' => (int) $posti['throws'][$i]
             ));
             ScoreController::store_by_object($score);
-            
         }
         Redirect::to('/track/' . $id);
     }
+
 }
