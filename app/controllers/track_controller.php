@@ -70,7 +70,8 @@ class TrackController extends BaseController {
         $player = self::get_user_logged_in();
         if (empty($hole)) {
             Redirect::to('/track/' . $id . '/add');
-        }
+        }        
+        
         View::make('track/view.html', array('track' => $track, 'holes' => $hole, 'player' => $player));
     }
 
@@ -159,5 +160,6 @@ class TrackController extends BaseController {
         }
         Redirect::to('/track/' . $id);
     }
+
 
 }

@@ -25,6 +25,7 @@ class Hole extends BaseModel {
         return $holes;
     }
 
+
     public function save() {
         $query = DB::connection()->prepare('INSERT INTO Hole (track, par, length) VALUES (:track, :par, :length) RETURNING id');
         $query->execute(array('track' => $this->track, 'par' => $this->par, 'length' => $this->length));

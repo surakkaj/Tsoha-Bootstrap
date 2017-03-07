@@ -12,7 +12,6 @@
             {% if user_logged_in %}
             <th> {{user_logged_in.name}} personal best</th>
             {% endif %}
-            <th>personal best</th>
         </tr>
     </thead>
 
@@ -23,8 +22,7 @@
             <td><a href="{{base_path}}/track/{{track.id}}">{{track.track}}</td>
             <td>{{track.location}}</td>
             <td>{{track.length}}</td>
-            <td>placehold</td>
-            <th>placehold</th>        
+            <td>{{track.get_par()}}</td>
         </tr>
         {% endfor %}
     </tbody>

@@ -1,9 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-{% if holes is empty %}
-<!-- admin if redirect-->
 
-{% endif %}
 <h1>{{ track.track }}</h1>
 <h5>Par: 23</h5>
 <h5>Length:  {{ track.length }}</h5>
@@ -48,7 +45,7 @@
             <td>{{ i }}{% set i = i+1 %}</td>
             <td>{{ hole.par }}</td>
             <td>{{ hole.length }}</td>
-            <td>placehold</td>        
+            <td>{{ scores[i-2].throws}}</td>        
         </tr>
         {% endfor %}
     </tbody>

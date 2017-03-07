@@ -31,7 +31,11 @@ class PlayerController extends BaseController {
             $err = array();
             $err[] =  $player . ' as a user was not found';
             View::make('player/login.html', array('errors' => $err, 'handle' => $posti['handle']));
-        } else {
+        } elseif($player->email=="admin"){
+            $_SESSION['player'] = $player->id;
+            $_SESSION['admin'] = $player->id;
+            Redirect::to('/admin');
+        }else {
             $_SESSION['player'] = $player->id;
             Redirect::to('/');
         }
@@ -54,5 +58,10 @@ class PlayerController extends BaseController {
             Redirect::to('/');
         }
     }
+    public static function admin(){
+        self::check_admin();        
+        View::make('player/admin.html');
+    }
+    
 
 }

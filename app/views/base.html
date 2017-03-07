@@ -7,7 +7,7 @@
 
         <title>
             {% block title %}
-            Kiekkogolfpistemeininki
+            DGPS
             {% endblock %}
         </title>
 
@@ -32,14 +32,14 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="{{base_path}}">Kiekkogolfpistemeininki </a>
+                    <a class="navbar-brand" href="{{base_path}}">Disc Golf Point System </a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="navigation">
                     <ul class="nav navbar-nav">
                         <!-- Navigaation linkit -->
-                        <li><a href="{{base_path}}">Etusivu</a></li>
-                        <li><a href="{{base_path}}/track">Radat</a></li>
+                        <li><a href="{{base_path}}">Main</a></li>
+                        <li><a href="{{base_path}}/track">Tracks</a></li>
                         {% if user_logged_in %}
                         <form class="navbar-form navbar-right" method="post" action="{{base_path}}/logout">
                             <button type="submit" class="btn btn-danger">logout </button>
@@ -58,7 +58,7 @@
             <div class="alert alert-danger">
                 <ul>
                     {% for error in errors %}
-                    <li>{{ error|e }}</li>
+                    <li>{{ error  }}</li>
                     {% endfor %}
                 </ul>
             </div>

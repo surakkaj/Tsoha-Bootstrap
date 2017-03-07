@@ -20,7 +20,7 @@
         <tr>
             <td>{{run.id}}</td>
             <td>{{run.track}}</td>
-            <td>{{run.player}}</td>
+            <td>{{player.id}}</td>
             <td>{{run.date}}</td>
         </tr>
     </tbody>
@@ -45,7 +45,7 @@
            <td>{{ i }}{% set i = i+1 %}</td>
             <td>{{ hole.par }}</td>
             <td>{{ hole.length }}</td>
-            <td>{{ scores[i].throws}}</td>        
+            <td>{{ scores[i-2].throws}}</td>        
         </tr>
         {% endfor %}
     </tbody>

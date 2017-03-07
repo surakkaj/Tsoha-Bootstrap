@@ -32,7 +32,7 @@ class Track extends BaseModel {
     }
 
     public static function find($id) {
-       
+
         $query = DB::connection()->prepare('SELECT * FROM Track WHERE id = :id');
         $query->execute(array('id' => $id));
         $row = $query->fetch();
@@ -80,6 +80,32 @@ class Track extends BaseModel {
 
     public function validate_length() {
         return $this->validate_integer($this->length);
+    }
+
+    public function get_par() {
+        $holes = Hole::find_by_trackId($this->id);
+        if (empty($holes)) {
+            return null;
+        } else {
+            $par = 0;
+            foreach ($holes as $hole) {
+                $par+=$hole->par;
+            }
+            return $par;
+        }
+    }
+
+    public function get_length() {
+        $holes = Hole::find_by_trackId($this->id);
+        if (empty($holes)) {
+            return null;
+        } else {
+            $length = 0;
+            foreach ($holes as $hole) {
+                $length+=$hole->length;
+            }
+            return $length;
+        }
     }
 
 }

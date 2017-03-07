@@ -61,12 +61,40 @@ class Player extends BaseModel {
         $this->id = $row['id'];
     }
 
+    public function delete() {
+        $query1 = DB::connection()->prepare('DELETE FROM Player  WHERE id = :id');
+        $query1->execute(array('id' => $this->id));
+    }
+
     public function validate_handle() {
         return $this->validate_min_length($this->handle, 3);
     }
 
+    public function validate_nonadmin() {
+        if ($this->email == "admin") {
+            return false;
+        }
+        return true;
+    }
+
     public function validate_pass() {
         return $this->validate_min_length($this->pass, 7);
+    }
+
+    public static function get_best_to_track($tid) {
+        
+    }
+
+    public static function get_best_to_hole($hid) {
+        
+    }
+
+    public static function get_avg_to_track($tid) {
+        
+    }
+
+    public static function get_avg_to_hole($hid) {
+        
     }
 
 }

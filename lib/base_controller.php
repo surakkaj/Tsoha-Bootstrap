@@ -13,7 +13,15 @@ class BaseController {
 
     public static function check_logged_in() {
         if (!isset($_SESSION['player'])) {
-            Redirect::to('/login', array('errors' => 'You should log in first'));
+            $err[] = 'You should log in first';
+            Redirect::to('/login', array('errors' => $err));
+        }
+    }
+
+    public static function check_admin() {
+        if (!isset($_SESSION['admin'])) {
+            $err[] = 'Admins only';
+            Redirect::to('/login', array('errors' => $err));
         }
     }
 

@@ -45,4 +45,37 @@ class Score extends BaseModel {
         return $score;
     }
 
+    public static function find_by_player($pid) {
+        $query = DB::connection()->prepare('SELECT * FROM Score WHERE playerid = :pid ');
+        $query->execute(array('pid' => $pid));
+        $rows = $query->fetchAll();
+        $score = array();
+        foreach ($rows as $row) {
+
+            $score[] = new Score(array(
+                'id' => $row['id'],
+                'run' => $row['run'],
+                'player' => $row['playerid'],
+                'hole' => $row['holeid'],
+                'throws' => $row['throws']
+            ));
+        }
+        return $score;
+    }
+        public static function find_track_by_player($tid, $pid) {
+        $query = DB::connection()->prepare('SELECT Score.throws, Score.run, Player.id  FROM Score INNER JOIN Player ON Score.player=Player.id WHERE Score.track = :tid AND Score.player = :pid');
+        $query->execute(array('tid' => $tid, 'pid' => $pid));
+        $rows = $query->fetchAll();
+        $holes = array();
+        foreach ($rows as $row) {
+            $holes[] = new Hole(array(
+                 'id' => $row['id'],
+                'run' => $row['run'],
+                'throws' => $row['throws']
+            ));
+        }
+        return $holes;
+    }
+
+
 }
