@@ -14,14 +14,14 @@ class TrackController extends BaseController {
     }
 
     public static function edit($id) {
-        self::check_logged_in();
+        self::check_admin();
         $track = Track::find($id);
         $hole = Hole::find_by_trackId($id);
         View::make('track/edit.html', array('track' => $track, 'holes' => $hole));
     }
 
     public static function update() {
-        self::check_logged_in();
+        self::check_admin();
         $posti = $_POST;
         $track = new Track(array(
             'id' => (int) $posti['trackid'],
@@ -41,6 +41,7 @@ class TrackController extends BaseController {
     }
 
     public static function update_holes() {
+        self::check_admin();
         $posti = $_POST;
 
         for ($i = 0; $i < sizeof($posti['par']); $i++) {
@@ -58,7 +59,7 @@ class TrackController extends BaseController {
     }
 
     public static function destroy($id) {
-        self::check_logged_in();
+        self::check_admin();
         $track = new Track(array('id' => $id));
         $track->delete();
         Redirect::to('/track');
@@ -70,13 +71,13 @@ class TrackController extends BaseController {
         $player = self::get_user_logged_in();
         if (empty($hole)) {
             Redirect::to('/track/' . $id . '/add');
-        }        
-        
+        }
+
         View::make('track/view.html', array('track' => $track, 'holes' => $hole, 'player' => $player));
     }
 
     public static function store() {
-        self::check_logged_in();
+        self::check_admin();
         $posti = $_POST;
         $track = new Track(array(
             'track' => $posti['track'],
@@ -99,6 +100,7 @@ class TrackController extends BaseController {
     }
 
     public static function holes($id) {
+        self::check_admin();
         $posti = $_POST;
 
         for ($i = 0; $i < sizeof($posti['par']); $i++) {
@@ -126,7 +128,7 @@ class TrackController extends BaseController {
         self::check_logged_in();
         $track = Track::find($id);
         $holes = Hole::find_by_trackId($id);
-        
+
         $run = Run::find($rid);
         if (empty($run) || $run->track != $track->id) {
             self::run($id);
@@ -134,6 +136,7 @@ class TrackController extends BaseController {
         $scores = Score::find_by_runId($run->id);
         View::make('run/view.html', array('track' => $track, 'holes' => $holes, 'run' => $run, 'scores' => $scores));
     }
+
     public static function store_run($id) {
         self::check_logged_in();
         $posti = $_POST;
@@ -160,6 +163,5 @@ class TrackController extends BaseController {
         }
         Redirect::to('/track/' . $id);
     }
-
 
 }

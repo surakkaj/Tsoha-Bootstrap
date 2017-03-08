@@ -9,9 +9,7 @@
             <th>City</th>
             <th>Length</th>
             <th>Par</th>
-            {% if user_logged_in %}
-            <th> {{user_logged_in.name}} personal best</th>
-            {% endif %}
+            
         </tr>
     </thead>
 
@@ -21,11 +19,13 @@
         <tr>    
             <td><a href="{{base_path}}/track/{{track.id}}">{{track.track}}</td>
             <td>{{track.location}}</td>
-            <td>{{track.length}}</td>
+            <td>{{track.get_length()}}</td>
             <td>{{track.get_par()}}</td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+{% if check_admin %} 
 <a href="{{base_path}}/track/add" class="btn btn-success">Add track</a>
+{% endif %}
 {% endblock %}

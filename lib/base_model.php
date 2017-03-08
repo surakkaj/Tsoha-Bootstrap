@@ -38,12 +38,16 @@ class BaseModel {
         }
     }
     public function validate_min_length_hide($string, $length) {
-        if (strlen($string) < $length && $bool) {
+        if (strlen($string) < $length) {
             return  "The input can't be less than  " . $length;
-        } elseif (!$bool) {
-            
+        } else {
+            return;
         }
-            else {
+    }
+    public function validate_contains($string, $regex) {
+        if (!preg_match('/' . $regex . '/', $string)) {
+            return  "The input must contain  " . $regex;
+        } else {
             return;
         }
     }

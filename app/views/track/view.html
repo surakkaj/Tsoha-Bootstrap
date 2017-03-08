@@ -5,6 +5,7 @@
 <h5>Par: 23</h5>
 <h5>Length:  {{ track.length }}</h5>
 <!-- add if statement -->
+{% if user_logged_in %}
 <table class="table table-striped table-bordered">
     <thead>
         <tr>
@@ -17,13 +18,14 @@
 
     <tbody>
         <tr>
-            <td>4</td>
-            <td>+2</td>
-            <td>+4</td>
-            <td>104</td>
+            <td>{{player.get_runs_to_track(track.id)}}</td>
+            <td>{{player.get_best_to_track(track.id)}}</td>
+            <td>{{player.get_avg_to_track(track.id)}}</td>
+            <td>{{player.get_throws_to_track(track.id)}}</td>
         </tr>
     </tbody>
 </table>
+{% endif %}
 <table class="table table-striped table-bordered">
     <thead>
         <tr>
@@ -45,7 +47,7 @@
             <td>{{ i }}{% set i = i+1 %}</td>
             <td>{{ hole.par }}</td>
             <td>{{ hole.length }}</td>
-            <td>{{ scores[i-2].throws}}</td>        
+            <td>{{ player.get_best_to_hole(hole.id) }}</td>        
         </tr>
         {% endfor %}
     </tbody>
@@ -56,10 +58,12 @@
     <input type="hidden" name="" value="">
   <button type="submit" class="btn btn-success">Add run</button>
 </form>
+{% if check_admin %}
 <form method="post" action="{{base_path}}/track/{{track.id}}/destroy" style="display: inline-block;">
   <button type="submit" class="btn btn-danger">Delete track</button>
 </form>
 <form method="get" action="{{base_path}}/track/{{track.id}}/edit" style="display: inline-block;">
   <button type="submit" class="btn btn-warning">Edit track</button>
 </form>
+{% endif %}
 {% endblock %}

@@ -61,7 +61,6 @@ class PlayerController extends BaseController {
     public static function admin(){
         self::check_admin();        
         View::make('player/admin.html');
-    }
-    
+    }  
 
 }

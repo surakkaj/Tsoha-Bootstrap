@@ -12,7 +12,7 @@ class Player extends BaseModel {
 
     public function __construct($attributes) {
         parent::__construct($attributes);
-        $this->validators = array('validate_handle', 'validate_pass');
+        $this->validators = array('validate_handle', 'validate_pass', 'validate_email');
     }
 
     public function auth($handle, $pass) {
@@ -69,8 +69,8 @@ class Player extends BaseModel {
     public function validate_handle() {
         return $this->validate_min_length($this->handle, 3);
     }
-    public function validate_e() {
-        return $this->validate_min_length($this->handle, 3);
+    public function validate_email() {
+        return $this->validate_contains($this->email, '@');
     }
 
     public function validate_nonadmin() {
@@ -81,23 +81,66 @@ class Player extends BaseModel {
     }
 
     public function validate_pass() {
-        return $this->validate_min_length($this->pass, 7);
+        return $this->validate_min_length_hide($this->pass, 7);
     }
 
-    public static function get_best_to_track($tid) {
-        $scores = Score::find_track_by_player($tid, $this->id);
+    public function get_best_to_track($tid) {
+        $scored = Score::find_by_player($this->id);
+        $runs = Run::find_by_trackId_array($tid);
+        $scores = array();
+        foreach ($scored as $score){
+            if (in_array($score->run, $runs)) {
+                $scores[] = $score;
+            }
+        }
         return Kint::dump($scores);
     }
-
-    public static function get_best_to_hole($hid) {
-        
+    
+    public function get_runs_to_track($tid){
+        $scored = Score::find_by_player($this->id);
+        $runs = Run::find_by_trackId_array($tid);
+        $scores = array();
+        $count = 0;
+        foreach ($scored as $score){
+            if (in_array($score->run, $runs)) {
+                $scores[] = $score;
+                $count++;
+            }
+        }
+        return $count;
+    }
+    
+    public function get_throws_to_track($tid){
+         $scored = Score::find_by_player($this->id);
+        $runs = Run::find_by_trackId_array($tid);
+        $scores = array();
+        $throws = 0;
+        foreach ($scored as $score){
+            if (in_array($score->run, $runs)) {
+                $scores[] = $score;
+                $throws += $score->throws;
+            }
+        }
+        return $throws;
     }
 
-    public static function get_avg_to_track($tid) {
-        
+    public function get_best_to_hole($hid) {
+      return $hid;  
     }
 
-    public static function get_avg_to_hole($hid) {
+    public function get_avg_to_track($tid) {
+                $scored = Score::find_by_player($this->id);
+        $runs = Run::find_by_trackId_array($tid);
+        $scores = array();
+        foreach ($scored as $score){
+            if (in_array($score->run, $runs)) {
+                $scores[] = $score;
+            }
+        }
+        return Kint::dump($runs);
+    }
+
+    public function get_avg_to_hole($hid) {
         
     }
 

@@ -24,5 +24,13 @@ class BaseController {
             Redirect::to('/login', array('errors' => $err));
         }
     }
+        public static function get_admin_logged_in() {
+        if (isset($_SESSION['admin'])) {
+            $player_id = $_SESSION['player'];
+            $player = Player::find($player_id);
+            return $player;
+        }
+        return null;
+    }
 
 }

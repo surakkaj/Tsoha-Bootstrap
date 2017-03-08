@@ -39,7 +39,7 @@ class Run extends BaseModel {
         $query = DB::connection()->prepare('SELECT * FROM Run WHERE track = :id');
         $query->execute(array('id' => $id));
         $rows = $query->fetchAll();
-        $holes = array();
+        $runs = array();
         foreach ($rows as $row) {
             $runs[] = new Run(array(
                 'id' => $row['id'],
@@ -48,6 +48,17 @@ class Run extends BaseModel {
                 'track' => $row['track']
             ));
         }
+        return $runs;
+    }
+
+    public static function find_by_trackId_array($id) {
+        $query = DB::connection()->prepare('SELECT * FROM Run WHERE track = :id');
+        $query->execute(array('id' => $id));
+        $rows = $query->fetchAll();
+        $runs = array();
+        foreach ($rows as $row) {
+            $runs[] = $row['id'];
+         }
         return $runs;
     }
 
