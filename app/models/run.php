@@ -35,6 +35,22 @@ class Run extends BaseModel {
         return null;
     }
 
+    public static function find_by_trackId($id) {
+        $query = DB::connection()->prepare('SELECT * FROM Run WHERE track = :id');
+        $query->execute(array('id' => $id));
+        $rows = $query->fetchAll();
+        $holes = array();
+        foreach ($rows as $row) {
+            $runs[] = new Run(array(
+                'id' => $row['id'],
+                'track' => $row['track'],
+                'player' => $row['playerid'],
+                'track' => $row['track']
+            ));
+        }
+        return $runs;
+    }
+
     public function save() {
         $query = DB::connection()->prepare('INSERT INTO Run (track, playerid, playdate) VALUES (:track, :playerid, :playdate) RETURNING id');
         $query->execute(array('track' => $this->track, 'playerid' => $this->player, 'playdate' => $this->date));
@@ -49,6 +65,5 @@ class Run extends BaseModel {
         $query2 = DB::connection()->prepare('DELETE FROM Run WHERE id = :id');
         $query2->execute(array('id' => $this->id));
     }
-
 
 }

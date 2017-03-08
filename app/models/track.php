@@ -64,7 +64,11 @@ class Track extends BaseModel {
     }
 
     public function delete() {
-        $query1 = DB::connection()->prepare('DELETE FROM hole  WHERE track = :id');
+        $runs = Run::find_by_trackId($this->id);
+        foreach ($runs as $run){
+            $run->delete();
+        }
+        $query1 = DB::connection()->prepare('DELETE FROM Hole  WHERE track = :id');
         $query1->execute(array('id' => $this->id));
         $query2 = DB::connection()->prepare('DELETE FROM Track  WHERE id = :id');
         $query2->execute(array('id' => $this->id));

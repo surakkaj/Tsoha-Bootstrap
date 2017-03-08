@@ -37,6 +37,16 @@ class BaseModel {
             return;
         }
     }
+    public function validate_min_length_hide($string, $length) {
+        if (strlen($string) < $length && $bool) {
+            return  "The input can't be less than  " . $length;
+        } elseif (!$bool) {
+            
+        }
+            else {
+            return;
+        }
+    }
 
     public function validate_integer($preint) {
         if (is_numeric($preint)) {

@@ -69,6 +69,9 @@ class Player extends BaseModel {
     public function validate_handle() {
         return $this->validate_min_length($this->handle, 3);
     }
+    public function validate_e() {
+        return $this->validate_min_length($this->handle, 3);
+    }
 
     public function validate_nonadmin() {
         if ($this->email == "admin") {
@@ -82,7 +85,8 @@ class Player extends BaseModel {
     }
 
     public static function get_best_to_track($tid) {
-        
+        $scores = Score::find_track_by_player($tid, $this->id);
+        return Kint::dump($scores);
     }
 
     public static function get_best_to_hole($hid) {
