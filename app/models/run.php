@@ -46,6 +46,21 @@ class Run extends BaseModel {
         }
         return $runs;
     }
+    public static function find_by_track_player($tid, $pid) {
+        $query = DB::connection()->prepare('SELECT * FROM Run WHERE track = :tid AND playerid = :pid');
+        $query->execute(array('tid' => $tid, 'pid' => $pid));
+        $rows = $query->fetchAll();
+        $runs = array();
+        foreach ($rows as $row) {
+            $runs[] = new Run(array(
+                'id' => $row['id'],
+                'track' => $row['track'],
+                'player' => $row['playerid'],
+                'track' => $row['track']
+            ));
+        }
+        return $runs;
+    }
 
     public static function find_by_trackId_array($id) {
         $query = DB::connection()->prepare('SELECT * FROM Run WHERE track = :id');

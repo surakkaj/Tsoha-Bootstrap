@@ -1,6 +1,5 @@
 <?php
 
-
 class Score extends BaseModel {
 
     public $id, $run, $player, $throws, $hole;
@@ -57,20 +56,36 @@ class Score extends BaseModel {
         }
         return $score;
     }
-        public static function find_track_by_player($tid, $pid) {
-        $query = DB::connection()->prepare('SELECT Score.throws, Score.run, Player.id  FROM Score INNER JOIN Player ON Score.playerid=Player.id WHERE Score.playerid = :pid');
-        $query->execute(array( 'pid' => $pid));
+
+    public static function throws_by_run($id) {
+        $query = DB::connection()->prepare('SELECT throws FROM Score WHERE run = :id');
+        $query->execute(array('id' => $id));
         $rows = $query->fetchAll();
-        $scores = array();
+        $score = array();
         foreach ($rows as $row) {
-            $scores[] = new Score(array(
-                 'id' => $row['id'],
+            $score[] = new Score(array(
+                'id' => $row['id'],
                 'run' => $row['run'],
+                'player' => $row['playerid'],
+                'hole' => $row['holeid'],
                 'throws' => $row['throws']
             ));
         }
+        return $score;
+    }
+    public static function best_hole_by_player($hid, $pid) {
+        $query = DB::connection()->prepare('SELECT min(throws) AS throws FROM Score WHERE holeid = :hid AND playerid = :pid');
+        $query->execute(array('hid' => $hid, 'pid' => $pid));
+        $row = $query->fetch();
+        $scores = null;
+        if ($row) {
+            $scores = new Score(array(
+                'throws' => $row['throws']
+            ));
+        }
+
+
         return $scores;
     }
-
 
 }

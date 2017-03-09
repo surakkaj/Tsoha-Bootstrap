@@ -67,7 +67,7 @@
       $routes->post('/login/new', function() {
           PlayerController::store();
   });
-      $routes->post('/admin', function() {
+      $routes->get('/admin', function() {
           PlayerController::admin();
   });
 
