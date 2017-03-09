@@ -2,8 +2,8 @@
 {% block content %}
 
 <h1>{{ track.track }}</h1>
-<h5>Par: 23</h5>
-<h5>Length:  {{ track.length }}</h5>
+<h5>Par: {{ track.get_par() }}</h5>
+<h5>Length:  {{ track.get_length() }}</h5>
 <!-- add if statement -->
 {% if user_logged_in %}
 <table class="table table-striped table-bordered">
